@@ -1,6 +1,6 @@
 # ping-checker
 
-Ping checker package helps to check ICMP status for multiple IPs in one go
+ping-checker helps to check ICMP status for multiple IPs with csv input file and generate the output.csv as a result.
 
 ### HOW TO USE
 
