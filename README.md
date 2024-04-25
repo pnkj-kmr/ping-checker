@@ -47,6 +47,50 @@ ip,tag,ping_result,error_if_any
 
 ```
 ./pingchecker --help
+
+----------------------
+Usage of ./pingchecker:
+  -f string
+        give a file name
+  -t int
+        ping timeout - secs (default 5)
+  -w int
+        number of worker (default 4)
+
+-------
+Example:
+
+./pingchecker -f x.csv -t 30 -w 20
+
+```
+
+## OPTIONS
+
+---
+
+### `-f` (DEFAULT: "./input.csv")
+
+Different input file if any
+
+```
+./pingchecker -f ./new_input_file.csv
+```
+
+### `-w` (DEFAULT: 4)
+
+Increase worker processes if needed
+
+```
+./pingchecker -w 1000
+```
+
+### `-t` (DEFAULT: 5 (secs))
+
+Increase end IP ping timeout
+
+```
+# timeout 10 seconds
+./pingchecker -t 10
 ```
 
 :)
