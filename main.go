@@ -14,7 +14,7 @@ func main() {
 	noWorkers := flag.Int("w", 4, "number of worker")
 	timeout := flag.Int("t", 5, "ping timeout - secs")
 	flag.Parse()
-	log.Println("File accepted:", *fileName)
+	log.Println("File accepted:", *fileName, "| output file:", *outFilename)
 	log.Println("Ping timeout:", *timeout, "| Worker processes:", *noWorkers)
 
 	ips := internal.GetIPList(*fileName)
