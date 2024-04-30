@@ -37,7 +37,7 @@ _After creating the file run the executable binary as_
 _As a result **output.csv** file will be created after completion_
 
 ```
-ip,tag,ping_result,error_if_any
+ip,tag,result,packetloss,error_if_any
 
 
 
@@ -51,7 +51,9 @@ ip,tag,ping_result,error_if_any
 ----------------------
 Usage of ./pingchecker:
   -f string
-        give a file name
+        give a file name (default "input.csv")
+  -o string
+        output file name (default "output.csv")
   -t int
         ping timeout - secs (default 5)
   -w int
@@ -68,12 +70,20 @@ Example:
 
 ---
 
-### `-f` (DEFAULT: "./input.csv")
+### `-f` (DEFAULT: "input.csv")
 
 Different input file if any
 
 ```
 ./pingchecker -f ./new_input_file.csv
+```
+
+### `-o` (DEFAULT: "output.csv")
+
+Different output file if required
+
+```
+./pingchecker -o new_output.csv
 ```
 
 ### `-w` (DEFAULT: 4)

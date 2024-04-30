@@ -50,8 +50,8 @@ func GetIPList(f string) []Csv {
 }
 
 // PutOutput helps to write result into file
-func PutOutput(ch <-chan Result, exitCh chan<- struct{}) {
-	file, err := os.Create("./output.csv")
+func PutOutput(f string, ch <-chan Result, exitCh chan<- struct{}) {
+	file, err := os.Create(fmt.Sprintf("./%s", f))
 	if err != nil {
 		log.Fatal("Unable to write into file -", err)
 	}

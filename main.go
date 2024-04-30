@@ -9,13 +9,11 @@ import (
 )
 
 func main() {
-	fileName := flag.String("f", "", "give a file name")
+	fileName := flag.String("f", "input.csv", "give a file name")
+	outFilename := flag.String("o", "output.csv", "output file name")
 	noWorkers := flag.Int("w", 4, "number of worker")
 	timeout := flag.Int("t", 5, "ping timeout - secs")
 	flag.Parse()
-	if *fileName == "" {
-		*fileName = "./input.csv"
-	}
 	log.Println("File accepted:", *fileName)
 	log.Println("Ping timeout:", *timeout, "| Worker processes:", *noWorkers)
 
@@ -24,7 +22,7 @@ func main() {
 
 	exitCh := make(chan struct{})
 	ch := make(chan internal.Result)
-	go internal.PutOutput(ch, exitCh)
+	go internal.PutOutput(*outFilename, ch, exitCh)
 
 	var wg sync.WaitGroup
 	c := make(chan int, *noWorkers)
