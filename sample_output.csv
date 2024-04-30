@@ -1,2 +1,2 @@
-ip,tag,ping_result,error_if_any
+ip,tag,result,packetloss,error_if_any
 

@@ -1,4 +1,4 @@
-module ping-poller
+module ping-checker
 
 go 1.20
 

@@ -15,10 +15,11 @@ type Csv struct {
 
 // Result represent the output
 type Result struct {
-	IP  string
-	Tag string
-	Ok  bool
-	Err error
+	IP      string
+	Tag     string
+	Ok      bool
+	PktLass float64
+	Err     error
 }
 
 // GetIPList helps get IP list from csv
@@ -49,15 +50,15 @@ func GetIPList(f string) []Csv {
 }
 
 // PutOutput helps to write result into file
-func PutOutput(ch <-chan Result) {
+func PutOutput(ch <-chan Result, exitCh chan<- struct{}) {
 	file, err := os.Create("./output.csv")
 	if err != nil {
 		log.Fatal("Unable to write into file -", err)
 	}
 	defer file.Close()
-	file.Write([]byte("ip,tag,ping_result,error_if_any\n"))
+	file.Write([]byte("ip,tag,result,packetloss,error_if_any\n"))
 	for r := range ch {
-		// log.Println("-------", r)
-		file.Write([]byte(fmt.Sprintf("%s,%s,%t,%s\n", r.IP, r.Tag, r.Ok, r.Err.Error())))
+		file.Write([]byte(fmt.Sprintf("%s,%s,%t,%f,%s\n", r.IP, r.Tag, r.Ok, r.PktLass, r.Err.Error())))
 	}
+	exitCh <- struct{}{}
 }

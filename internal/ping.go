@@ -7,7 +7,7 @@ import (
 )
 
 // Ping helps to get ping result true - if packetlass not 100%
-func Ping(addr string, timeout int) (ok bool, err error) {
+func Ping(addr string, timeout int) (ok bool, l float64, err error) {
 	pinger, err := probing.NewPinger(addr)
 	if err != nil {
 		return
@@ -19,5 +19,5 @@ func Ping(addr string, timeout int) (ok bool, err error) {
 		return
 	}
 	stats := pinger.Statistics()
-	return stats.PacketLoss != 100, err
+	return stats.PacketLoss != 100, stats.PacketLoss, err
 }
