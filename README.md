@@ -50,14 +50,18 @@ ip,tag,result,packetloss,error_if_any
 
 ----------------------
 Usage of ./pingchecker:
+  -c int
+        packet count (default 4)
   -f string
         give a file name (default "input.csv")
+  -json
+        file type - default[csv]
   -o string
         output file name (default "output.csv")
   -t int
-        ping timeout - secs (default 5)
+        ping timeout [secs] (default 5)
   -w int
-        number of worker (default 4)
+        number of workers (default 4)
 
 -------
 Example:
@@ -101,6 +105,22 @@ Increase end IP ping timeout
 ```
 # timeout 10 seconds
 ./pingchecker -t 10
+```
+
+### `-json` (DEFAULT: csv)
+
+Change of input/output to json
+
+```
+./pingchecker -json
+```
+
+### `-c` (DEFAULT: 4)
+
+Ping packet count to send
+
+```
+./pingchecker -c 2
 ```
 
 :)
