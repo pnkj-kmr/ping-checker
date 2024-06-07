@@ -25,6 +25,8 @@ archives:
       - sample_input.csv
       - sample_input2.csv
       - sample_output.csv
+      - sample_input.json
+      - sample_output.json
     format: tar.gz
     # this name template makes the OS and Arch compatible with the results of uname.
     name_template: >-
