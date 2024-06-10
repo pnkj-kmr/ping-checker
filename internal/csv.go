@@ -53,7 +53,7 @@ func (c *_csv) ProduceOutput(ch <-chan Output, exitCh chan<- struct{}) {
 	for r := range ch {
 		file.Write([]byte(fmt.Sprintf("%s,%s,%t,%f,%d,%d,%s\n",
 			r.I.IP, r.I.Tag, r.Ok, r.PacketLoss, r.AvgRtt, r.StdDevRtt,
-			r.Err.Error())))
+			r.Err)))
 	}
 
 	exitCh <- struct{}{}

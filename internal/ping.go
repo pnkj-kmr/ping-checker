@@ -30,7 +30,7 @@ func Ping(i Input, count, timeout int) (out Output, err error) {
 	stats := pinger.Statistics()
 	return Output{
 		I: i, Ok: stats.PacketLoss != 100,
-		Err: err, PacketLoss: stats.PacketLoss,
+		Err: "", PacketLoss: stats.PacketLoss,
 		AvgRtt: stats.AvgRtt, StdDevRtt: stats.StdDevRtt,
 	}, err
 }

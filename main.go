@@ -42,7 +42,7 @@ func main() {
 			out, err := internal.Ping(ip, count, timeout)
 			if err == nil {
 				err = fmt.Errorf("")
-				out.Err = err
+				out.Err = err.Error()
 			}
 			ch <- out
 		}(ips[i], *count, *timeout)

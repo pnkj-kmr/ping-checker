@@ -21,7 +21,7 @@ type Input struct {
 type Output struct {
 	I          Input         `json:"input"`
 	Ok         bool          `json:"ok"`
-	Err        error         `json:"error,omitempty"`
+	Err        string        `json:"error,omitempty"`
 	PacketLoss float64       `json:"packet_loss"`
 	AvgRtt     time.Duration `json:"avg_rtt"`
 	StdDevRtt  time.Duration `json:"std_dev_rtt"`
