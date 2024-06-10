@@ -1,0 +1,37 @@
+[
+  {
+    "input": { "ip": "127.0.0.1", "tag": "test1" },
+    "ok": true,
+    "packet_loss": 0,
+    "avg_rtt": 265500,
+    "std_dev_rtt": 70687
+  },
+  {
+    "input": { "ip": "127.0.0.2", "tag": "test2" },
+    "ok": false,
+    "packet_loss": 100,
+    "avg_rtt": 0,
+    "std_dev_rtt": 0
+  },
+  {
+    "input": { "ip": "127.0.0.3" },
+    "ok": false,
+    "packet_loss": 100,
+    "avg_rtt": 0,
+    "std_dev_rtt": 0
+  },
+  {
+    "input": { "ip": "127.0.0.4" },
+    "ok": false,
+    "packet_loss": 100,
+    "avg_rtt": 0,
+    "std_dev_rtt": 0
+  },
+  {
+    "input": { "ip": "127.0.0.5" },
+    "ok": false,
+    "packet_loss": 100,
+    "avg_rtt": 0,
+    "std_dev_rtt": 0
+  }
+]
