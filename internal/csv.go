@@ -20,7 +20,6 @@ func NewCSV(ifile, ofile string, count, timeout int) PingChecker {
 
 func (c *_csv) GetInput() (out []Input) {
 	file, err := os.Open(c.ifile)
-
 	if err != nil {
 		log.Fatal("Error while opening the file", err)
 	}
@@ -43,13 +42,13 @@ func (c *_csv) GetInput() (out []Input) {
 }
 
 func (c *_csv) ProduceOutput(ch <-chan Output, exitCh chan<- struct{}) {
-	file, err := os.Create(fmt.Sprintf("./%s", c.ofile))
+	file, err := os.Create(fmt.Sprintf("%s", c.ofile))
 	if err != nil {
 		log.Fatal("Error while writing into file", err)
 	}
 	defer file.Close()
 
-	file.Write([]byte("ip,tag,result,packetloss,rtt,stddevrrt,error_if_any\n"))
+	file.Write([]byte("ip,tag,ok,packet_loss,avg_rtt,std_dev_rtt,error\n"))
 	for r := range ch {
 		file.Write([]byte(fmt.Sprintf("%s,%s,%t,%f,%d,%d,%s\n",
 			r.I.IP, r.I.Tag, r.Ok, r.PacketLoss, r.AvgRtt, r.StdDevRtt,

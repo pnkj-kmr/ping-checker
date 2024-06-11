@@ -6,9 +6,11 @@ import (
 	"log"
 	"ping-checker/internal"
 	"sync"
+	"time"
 )
 
 func main() {
+	st := time.Now()
 	fileName := flag.String("f", "input.csv", "give a file name")
 	outFilename := flag.String("o", "output.csv", "output file name")
 	noWorkers := flag.Int("w", 4, "number of workers")
@@ -17,7 +19,7 @@ func main() {
 	jsontype := flag.Bool("json", false, "file type - default[csv]")
 	flag.Parse()
 	log.Println("File accepted:", *fileName, "| output file:", *outFilename)
-	log.Println("Ping timeout:", *timeout, "| Worker processes:", *noWorkers)
+	log.Println("timeout:", *timeout, "| workers:", *noWorkers, "| packet:", *count, "| json:", *jsontype)
 
 	var pinger internal.PingChecker
 	if *jsontype {
@@ -51,5 +53,5 @@ func main() {
 	wg.Wait()
 	close(ch)
 	<-exitCh
-	log.Println("Execution completed.")
+	log.Println("Execution completed. time taken", time.Since(st))
 }

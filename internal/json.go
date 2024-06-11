@@ -40,7 +40,7 @@ func (c *_json) ProduceOutput(ch <-chan Output, exitCh chan<- struct{}) {
 	}
 
 	outJson, _ := json.Marshal(out)
-	err := ioutil.WriteFile(fmt.Sprintf("./%s", c.ofile), outJson, 0644)
+	err := ioutil.WriteFile(fmt.Sprintf("%s", c.ofile), outJson, 0644)
 	if err != nil {
 		log.Fatal("Error while writing into file", err)
 	}

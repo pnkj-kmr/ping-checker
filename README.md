@@ -6,7 +6,7 @@ ping-checker helps to check ICMP status for multiple IPs with csv input file and
 
 _Download the relevent os package from [here](https://github.com/pnkj-kmr/ping-checker/releases)_
 
-_create a **input.csv** file into your current working directory_
+_create a **input.csv** file_
 
 ```
 <ip_address1>,<tag>
@@ -26,6 +26,22 @@ _OR_
 ...
 ```
 
+_OR_
+
+_create a **input.json** file_
+
+```
+[
+    {
+        "ip": "127.0.0.1",
+        "tag": "test1", # omitempty
+        "count": 4      # omitempty
+        "timeout": 4    # omitempty
+    },
+    ...
+]
+```
+
 _After creating the file run the executable binary as_
 
 ```
@@ -37,10 +53,28 @@ _After creating the file run the executable binary as_
 _As a result **output.csv** file will be created after completion_
 
 ```
-ip,tag,result,packetloss,error_if_any
+ip,tag,result,packetloss,error
 
 
+```
 
+_OR_
+
+_As a result **output.json** file will be created after completion_
+
+```
+[
+  {
+    "input": { "ip": "127.0.0.1", ... },
+    "ok": true,
+    "error": "",        # omitempty
+    "packet_loss": 0,
+    "avg_rtt": 265500,
+    "std_dev_rtt": 70687
+  },
+
+  ...
+]
 ```
 
 ### HELP
