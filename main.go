@@ -1,7 +1,7 @@
 package main
 
 import (
-	"flag"
+	_ "embed"
 	"fmt"
 	"log"
 	"ping-checker/internal"
@@ -9,33 +9,33 @@ import (
 	"time"
 )
 
+//go:embed version.txt
+var appVersion string
+
 func main() {
 	st := time.Now()
-	fileName := flag.String("f", "input.csv", "give a file name")
-	outFilename := flag.String("o", "output.csv", "output file name")
-	noWorkers := flag.Int("w", 4, "number of workers")
-	timeout := flag.Int("t", 5, "ping timeout [secs]")
-	count := flag.Int("c", 4, "packet count")
-	jsontype := flag.Bool("json", false, "file type - default[csv]")
-	flag.Parse()
-	log.Println("File accepted:", *fileName, "| output file:", *outFilename)
-	log.Println("timeout:", *timeout, "| workers:", *noWorkers, "| packet:", *count, "| json:", *jsontype)
+
+	cmdPipe := internal.GetCmdPipe()
+	if cmdPipe.Version {
+		log.Println("Version: ", appVersion)
+		return
+	}
 
 	var pinger internal.PingChecker
-	if *jsontype {
-		pinger = internal.NewJSON(*fileName, *outFilename, *count, *timeout)
+	if cmdPipe.JsonType {
+		pinger = internal.NewJSON(cmdPipe.Ifile, cmdPipe.Ofile, cmdPipe.Count, cmdPipe.Timeout)
 	} else {
-		pinger = internal.NewCSV(*fileName, *outFilename, *count, *timeout)
+		pinger = internal.NewCSV(cmdPipe.Ifile, cmdPipe.Ofile, cmdPipe.Count, cmdPipe.Timeout)
 	}
 	ips := pinger.GetInput()
 	log.Println("Total IPs -- ", len(ips))
 
 	exitCh := make(chan struct{})
-	ch := make(chan internal.Output, *noWorkers)
+	ch := make(chan internal.Output, cmdPipe.Workers)
 	go pinger.ProduceOutput(ch, exitCh)
 
 	var wg sync.WaitGroup
-	c := make(chan int, *noWorkers)
+	c := make(chan int, cmdPipe.Workers)
 	for i := 0; i < len(ips); i++ {
 		wg.Add(1)
 		c <- 1
@@ -47,7 +47,7 @@ func main() {
 				out.Err = err.Error()
 			}
 			ch <- out
-		}(ips[i], *count, *timeout)
+		}(ips[i], cmdPipe.Count, cmdPipe.Timeout)
 		log.Println("IP sent for ping -- ", ips[i], i+1)
 	}
 	wg.Wait()

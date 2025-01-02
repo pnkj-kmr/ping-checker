@@ -26,3 +26,14 @@ type Output struct {
 	AvgRtt     time.Duration `json:"avg_rtt"`
 	StdDevRtt  time.Duration `json:"std_dev_rtt"`
 }
+
+// CmdPipe helps to define the Command line Agrs
+type CmdPipe struct {
+	Version  bool
+	Ifile    string
+	Ofile    string
+	Workers  int
+	Count    int
+	Timeout  int
+	JsonType bool
+}
