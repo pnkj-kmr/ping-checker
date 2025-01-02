@@ -8,8 +8,10 @@ import (
 
 // Ping helps to get ping result true - if packetlass not 100%
 func Ping(i Input, count, timeout int) (out Output, err error) {
+	out.I = i
 	pinger, err := probing.NewPinger(i.IP)
 	if err != nil {
+		out.Err = err.Error()
 		return
 	}
 
@@ -24,13 +26,15 @@ func Ping(i Input, count, timeout int) (out Output, err error) {
 	pinger.Timeout = time.Second * time.Duration(t)
 	err = pinger.Run()
 	if err != nil {
+		out.Err = err.Error()
 		return
 	}
 
 	stats := pinger.Statistics()
-	return Output{
-		I: i, Ok: stats.PacketLoss != 100,
-		Err: "", PacketLoss: stats.PacketLoss,
-		AvgRtt: stats.AvgRtt, StdDevRtt: stats.StdDevRtt,
-	}, err
+	out.Ok = stats.PacketLoss != 100
+	out.PacketLoss = stats.PacketLoss
+	out.AvgRtt = stats.AvgRtt
+	out.StdDevRtt = stats.StdDevRtt
+	out.Err = ""
+	return
 }
