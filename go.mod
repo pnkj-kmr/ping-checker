@@ -1,6 +1,6 @@
 module ping-checker
 
-go 1.22
+go 1.22.3
 
 require github.com/prometheus-community/pro-bing v0.5.0
 
