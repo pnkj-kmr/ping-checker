@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"runtime"
 	"time"
 
 	probing "github.com/prometheus-community/pro-bing"
@@ -17,6 +18,11 @@ func Ping(i Input, count, timeout int) (out Output, err error) {
 
 	if pinger.Count = i.Count; i.Count == 0 {
 		pinger.Count = count
+	}
+
+	if runtime.GOOS == "windows" {
+		// needs to set previllege in windows to execute raw icmp socket
+		pinger.SetPrivileged(true)
 	}
 
 	var t int
